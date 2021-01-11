@@ -250,27 +250,38 @@ gst_my_video_flip_transform_frame (GstVideoFilter * filter, GstVideoFrame * infr
 
   GST_DEBUG_OBJECT (myvideoflip, "transform_frame");
 
-  gst_video_frame_copy(outframe, inframe);
-
   if (myvideoflip->flip_vertical) {
-    for (y = 0; y < sh; y++) {
-      for (x = 0; x < sw; x++) {
-        for (z = 0; z < bpp; z++) {
-          d[y * stride + x * bpp + z] = 
-            s[(sh - y - 1) * stride + x * bpp + z];
+    if (myvideoflip->flip_horizontal) {
+      for (y = 0; y < sh; y++) {
+        for (x = 0; x < sw; x++) {
+          for (z = 0; z < bpp; z++) {
+            d[y * stride + x * bpp + z] = 
+              s[(sh - y - 1) * stride + (sw - x - 1) * bpp + z];
+          }
+        }
+      }
+    } else {
+      for (y = 0; y < sh; y++) {
+        for (x = 0; x < sw; x++) {
+          for (z = 0; z < bpp; z++) {
+            d[y * stride + x * bpp + z] = 
+              s[(sh - y - 1) * stride + x * bpp + z];
+          }
         }
       }
     }
-  }
-
-  if (myvideoflip->flip_horizontal) {
-    for (y = 0; y < sh; y++) {
-      for (x = 0; x < sw; x++) {
-        for (z = 0; z < bpp; z++) {
-          d[y * stride + x * bpp + z] = 
-            s[y * stride + (sw - x - 1) * bpp + z];
+  } else {
+    if (myvideoflip->flip_horizontal) {
+      for (y = 0; y < sh; y++) {
+        for (x = 0; x < sw; x++) {
+          for (z = 0; z < bpp; z++) {
+            d[y * stride + x * bpp + z] = 
+              s[y * stride + (sw - x - 1) * bpp + z];
+          }
         }
       }
+    } else {
+      gst_video_frame_copy(outframe, inframe);
     }
   }
 
