@@ -26,7 +26,7 @@
  * |[
  * gst-launch-1.0 -v videotestsrc ! video/x-raw,width=480,height=360,format=RGBA ! myvideoflip ! videoconvert ! autovideosink
  * ]|
- * FIXME Describe what the pipeline does.
+ * Flip the video to either vertical or horizontal and also can be just passed the video.
  * </refsect2>
  */
 
