@@ -31,5 +31,8 @@ plugin: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CC) -shared -o $@ $< $(LDFLAGS)
 
+test: $(TARGET)
+	GST_PLUGIN_PATH_1_0=$(shell pwd) gst-launch-1.0 -v videotestsrc ! video/x-raw,width=480,height=360,format=RGBA ! myvideoflip ! videoconvert ! autovideosink
+
 clean:
 	rm -f *.o $(TARGET)
