@@ -51,7 +51,7 @@
  * <refsect2>
  * <title>Example launch line</title>
  * |[
- * gst-launch -v -m fakesrc ! plugin ! fakesink silent=TRUE
+ * gst-launch -v -m fakesrc ! plugin ! fakesink
  * ]|
  * </refsect2>
  */
