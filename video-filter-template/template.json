@@ -1,0 +1,13 @@
+{
+  "VERSION": "0.0.1",
+  "PACKAGE_NAME": "plugin_template",
+  "PACKAGE_VERSION": "0.0.1",
+  "PACKAGE": "gst-template-plugin",
+  "GST_LICENSE": "LGPL",
+  "GST_API_VERSION": "1.0",
+  "GST_PACKAGE_NAME": "plugin_template",
+  "GST_PACKAGE_ORIGIN": "https://gstreamer.freedesktop.org/",
+  "FILE_NAME": "template",
+  "CLASS_NAME": "plugin_template",
+  "PLUGIN_NAME": "myplugin"
+}
