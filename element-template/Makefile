@@ -16,10 +16,10 @@ CFLAGS := -Wall -Werror -fPIC $(DEFINES)\
 LDFLAGS := $(shell pkg-config --libs gstreamer-1.0)\
 	$(shell pkg-config --libs gstreamer-base-1.0)
 
-SRC := {{FILE_NAME}}.c
+SRC := gst{{FILE_NAME}}.c
 OBJ := $(SRC:.c=.o)
 
-TARGET := lib{{FILE_NAME}}.so
+TARGET := libgst{{FILE_NAME}}.so
 
 plugin: $(TARGET)
 

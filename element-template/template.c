@@ -62,7 +62,9 @@
 
 #include <gst/gst.h>
 
-#include "{{FILE_NAME}}.h"
+#include "gst{{FILE_NAME}}.h"
+
+#define UNUSE(variable) if(variable)
 
 GST_DEBUG_CATEGORY_STATIC (gst_{{LOWERCASE_CLASS_NAME}}_debug);
 #define GST_CAT_DEFAULT gst_{{LOWERCASE_CLASS_NAME}}_debug
@@ -156,6 +158,8 @@ gst_{{LOWERCASE_CLASS_NAME}}_set_property (GObject * object, guint prop_id,
 {
   {{CAMEL_CLASS_NAME}} *filter = GST_{{UPPERCASE_CLASS_NAME}} (object);
 
+  UNUSE(filter);
+
   switch (prop_id) {
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -168,6 +172,8 @@ gst_{{LOWERCASE_CLASS_NAME}}_get_property (GObject * object, guint prop_id,
     GValue * value, GParamSpec * pspec)
 {
   {{CAMEL_CLASS_NAME}} *filter = GST_{{UPPERCASE_CLASS_NAME}} (object);
+
+  UNUSE(filter);
 
   switch (prop_id) {
     default:
@@ -187,6 +193,8 @@ gst_{{LOWERCASE_CLASS_NAME}}_sink_event (GstPad * pad, GstObject * parent,
   gboolean ret;
 
   filter = GST_{{UPPERCASE_CLASS_NAME}} (parent);
+
+  UNUSE(filter);
 
   switch (GST_EVENT_TYPE (event)) {
     case GST_EVENT_CAPS:
@@ -236,7 +244,7 @@ plugin_init (GstPlugin * plugin)
   GST_DEBUG_CATEGORY_INIT (gst_{{LOWERCASE_CLASS_NAME}}_debug, "plugin",
       0, "Template plugin");
 
-  return gst_element_register (plugin, "{{PLUGIN_NAME}}", GST_RANK_NONE, GST_TYPE_MY_FILTER);
+  return gst_element_register (plugin, "{{PLUGIN_NAME}}", GST_RANK_NONE, GST_TYPE_{{UPPERCASE_CLASS_NAME}});
 }
 
 /* gstreamer looks for this structure to register plugins
@@ -245,7 +253,7 @@ plugin_init (GstPlugin * plugin)
  */
 GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
     GST_VERSION_MINOR,
-    {{PLUGIN_NAME}},
+    {{FILE_NAME}},
     "Template plugin",
     plugin_init,
     PACKAGE_VERSION, GST_LICENSE, GST_PACKAGE_NAME, GST_PACKAGE_ORIGIN)

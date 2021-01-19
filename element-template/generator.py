@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import division
 
-import argparse, json, os
+import argparse, json, re, os
 
 default_config = {
   'VERSION': '0.0.1',
@@ -17,6 +17,20 @@ default_config = {
   'PLUGIN_NAME': 'myplugin'
 }
 
+def generate_file(template, out_file):
+  current_path = os.path.dirname(os.path.abspath(__file__))
+  with open(os.path.join(current_path, template), 'r') as source:
+    content = re.split('(\\{\\{[a-zA-Z0-9_]+\\}\\})', source.read())
+    for index, key in enumerate(content):
+      if len(key) > 4 and key[:2] == '{{' and key[-2:] == '}}':
+        key = key[2:-2]
+        if key in default_config.keys():
+          content[index] = default_config[key]
+    content = ''.join(content)
+    with open(out_file, 'w') as new_source:
+      new_source.write(content)
+  print(out_file)
+
 def camel_string(s):
   return ''.join([_s.capitalize() for _s in s.split('_')])
 
@@ -31,14 +45,13 @@ def generate(config, out_dir):
   default_config['LOWERCASE_CLASS_NAME'] = default_config['CLASS_NAME'].lower()
   default_config['CAMEL_CLASS_NAME'] = 'Gst' + camel_string(default_config['CLASS_NAME'])
   # create the output directory
-  # os.mkdir(out_dir)
+  os.mkdir(out_dir)
+  print('Generate the files to {}.'.format(out_dir))
   # generate the source files
-  with open('template.c', 'r') as source:
-    content = source.read()
-    for key in default_config.keys():
-      content.replace('{{' + key + '}}', default_config[key])
-    print(content)
-  # os.path.join(outdir, default_config['FILE_NAME'] + '.c')
+  generate_file('template.c', os.path.join(out_dir, 'gst' + default_config['FILE_NAME'] + '.c'))
+  generate_file('template.h', os.path.join(out_dir, 'gst' + default_config['FILE_NAME'] + '.h'))
+  generate_file('Makefile', os.path.join(out_dir, 'Makefile'))
+  generate_file('meson.build', os.path.join(out_dir, 'meson.build'))
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
