@@ -45,7 +45,8 @@ def generate(config, out_dir):
   default_config['LOWERCASE_CLASS_NAME'] = default_config['CLASS_NAME'].lower()
   default_config['CAMEL_CLASS_NAME'] = 'Gst' + camel_string(default_config['CLASS_NAME'])
   # create the output directory
-  os.mkdir(out_dir)
+  if not os.path.exists(out_dir):
+    os.mkdir(out_dir)
   print('Generate the files to {}.'.format(out_dir))
   # generate the source files
   generate_file('template.c', os.path.join(out_dir, 'gst' + default_config['FILE_NAME'] + '.c'))

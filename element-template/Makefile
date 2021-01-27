@@ -27,7 +27,7 @@ plugin: $(TARGET)
 	$(CC) $(CFLAGS) -c -o $<
 
 $(TARGET): $(OBJ)
-	$(CC) -shared -o $@ $< $(LDFLAGS)
+	$(CC) -shared -o $@ $^ $(LDFLAGS)
 
 clean:
 	rm -f *.o $(TARGET)

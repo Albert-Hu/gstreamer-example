@@ -29,9 +29,9 @@ plugin: $(TARGET)
 	$(CC) $(CFLAGS) -c -o $<
 
 $(TARGET): $(OBJ)
-	$(CC) -shared -o $@ $< $(LDFLAGS)
+	$(CC) -shared -o $@ $^ $(LDFLAGS)
 
-test:
+test: $(TARGET)
 	GST_PLUGIN_PATH_1_0=$(shell pwd) gst-launch-1.0 -v videotestsrc ! video/x-raw,width=480,height=360 ! {{PLUGIN_NAME}} ! videoconvert ! autovideosink
 
 clean:
