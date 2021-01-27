@@ -1,0 +1,13 @@
+{
+  "VERSION": "0.0.1",
+  "PACKAGE_NAME": "simple_isp",
+  "PACKAGE_VERSION": "0.0.1",
+  "PACKAGE": "gst-simple-isp",
+  "GST_LICENSE": "LGPL",
+  "GST_API_VERSION": "1.0",
+  "GST_PACKAGE_NAME": "simple_isp",
+  "GST_PACKAGE_ORIGIN": "https://gstreamer.freedesktop.org/",
+  "FILE_NAME": "simpleisp",
+  "CLASS_NAME": "simple_isp",
+  "PLUGIN_NAME": "simpleisp"
+}
